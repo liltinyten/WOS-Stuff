@@ -2556,31 +2556,25 @@ function crypto.new()
 	end
 
 	function cryptography.generateKey()
-		local key = ""
-		math.randomseed(os.time())  -- Initialize random seed based on current time
+		local keySizeBytes = 32  -- 32 bytes = 256 bits
+		local key = {}
 		
-		-- Generate random digits
-		for i = 1, 33 do
-			key = key .. math.random(0,9)
+		-- Generate random bytes
+		for i = 1, keySizeBytes do
+			key[i] = string.format("%02x", math.random(0, 255))
 		end
 		
-		return key
+		-- Concatenate the bytes into a single string
+		local keyString = table.concat(key)
+		
+		-- Format the key string with 0x prefix and group every 8 characters with separator
+		local formattedKey = "0x" .. keyString:gsub("(%w%w)", "%1"):upper()
+		
+		return formattedKey
 	end
 
 	return cryptography
 end
 
-local c = crypto.new()
-
-local key = "323890128319028418410948120721618"
-local text = "I like trains."
-print("made it here")
-local encryptedText = c.encryptText(text, key)
-print("Encrypted: "..encryptedText)
-
-local decryptedText = c.decryptText(encryptedText, key)
-print("Decrypted: "..decryptedText)
-
-
- disk = GetPartFromPort(1, "Disk")
+disk = GetPartFromPort(1, "Disk")
 disk:Write("result", crypto)
