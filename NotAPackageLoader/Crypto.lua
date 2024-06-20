@@ -2558,5 +2558,16 @@ function crypto.new()
 	return cryptography
 end
 
+local c = crypto.new()
+local key = "323890128319028418410948120721618"
+local text = "I like trains."
+print("made it here")
+local encryptedText = c.encrypt(text, key)
+print("Encrypted: "..encryptedText)
+
+local decryptedText = c.decrypt(encryptedText, key)
+print("Decrypted: "..decryptedText)
+
+
  disk = GetPartFromPort(1, "Disk")
 disk:Write("result", crypto)
