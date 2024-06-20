@@ -16,7 +16,7 @@
 
 local crypto = {}
 
-local function crypto:new()
+function crypto.new()
 	local cryptography = {}
 	
 	local GF8x2 = {
