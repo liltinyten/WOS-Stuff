@@ -2546,7 +2546,7 @@ function crypto.new()
 	end
 	
 	function cryptography.encrypt(text, key)
-		local result = ECB_256(encrypt, text, key)
+		local result = ECB_256(encrypt, key, text)
 		return result
 	end
 	
