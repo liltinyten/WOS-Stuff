@@ -5,9 +5,39 @@ FileSystem = {}
 function FileSystem.new(disk)
     local fs = {
         disk = disk,
-        fsTree = {["/"] = {type = "directory", contents = {}}}
+        fsTree = disk:ReadEntireDisk() or {["/"] = {type = "directory", contents = {}}}
     }
     
+    -- Helper function to verify the integrity of the file system
+    function fs:verifyIntegrity(node)
+        if type(node) ~= "table" then
+            return false
+        end
+        if node.type == "directory" then
+            if type(node.contents) ~= "table" then
+                return false
+            end
+            for _, child in pairs(node.contents) do
+                if not self:verifyIntegrity(child) then
+                    return false
+                end
+            end
+        elseif node.type == "file" then
+            if type(node.content) ~= "string" then
+                return false
+            end
+        else
+            return false
+        end
+        return true
+    end
+
+    -- Verify the integrity of the root directory
+    if not fs:verifyIntegrity(fs.fsTree["/"]) then
+        disk:ClearDisk()
+        fs.fsTree = {["/"] = {type = "directory", contents = {}}}
+    end
+
     -- Helper function to navigate to the correct node
     function fs:navigate(path)
         local node = self.fsTree["/"]
