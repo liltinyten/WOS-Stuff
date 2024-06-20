@@ -2556,15 +2556,15 @@ function crypto.new()
 	end
 
 	function cryptography.generateKey()
-		local key = {}
+		local key = ""
 		math.randomseed(os.time())  -- Initialize random seed based on current time
 		
 		-- Generate random digits
-		for i = 1, length do
-			table.insert(key, tostring(math.random(0, 9)))
+		for i = 1, 33 do
+			key = key .. math.random(0,9)
 		end
 		
-		return table.concat(key)
+		return key
 	end
 
 	return cryptography
