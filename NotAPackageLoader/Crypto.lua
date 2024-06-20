@@ -14,12 +14,12 @@
 	limitations under the License.
 ]] 
 
-local crypto = {}
+ crypto = {}
 
 function crypto.new()
-	local cryptography = {}
+	 cryptography = {}
 	
-	local GF8x2 = {
+	 GF8x2 = {
 		[0] = 0x00,
 		0x02,
 		0x04,
@@ -278,7 +278,7 @@ function crypto.new()
 		0xe5
 	}
 
-	local GF8x3 = {
+	 GF8x3 = {
 		[0] = 0x00,
 		0x03,
 		0x06,
@@ -537,7 +537,7 @@ function crypto.new()
 		0x1a
 	}
 
-	local GF8x9 = {
+	 GF8x9 = {
 		[0] = 0x00,
 		0x09,
 		0x12,
@@ -796,7 +796,7 @@ function crypto.new()
 		0x46
 	}
 
-	local GF8x11 = {
+	 GF8x11 = {
 		[0] = 0x00,
 		0x0b,
 		0x16,
@@ -1055,7 +1055,7 @@ function crypto.new()
 		0xa3
 	}
 
-	local GF8x13 = {
+	 GF8x13 = {
 		[0] = 0x00,
 		0x0d,
 		0x1a,
@@ -1314,7 +1314,7 @@ function crypto.new()
 		0x97
 	}
 
-	local GF8x14 = {
+	 GF8x14 = {
 		[0] = 0x00,
 		0x0e,
 		0x1c,
@@ -1573,7 +1573,7 @@ function crypto.new()
 		0x8d
 	}
 
-	local s = {
+	 s = {
 		[0] = 0x63,
 		0x7C,
 		0x77,
@@ -1832,7 +1832,7 @@ function crypto.new()
 		0x16
 	}
 
-	local si = {
+	 si = {
 		[0] = 0x52,
 		0x09,
 		0x6A,
@@ -2091,7 +2091,7 @@ function crypto.new()
 		0x7D
 	}
 
-	local rcon = {0x8d, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36, 0x6c, 0xd8, 0xab, 0x4d, 0x9a, 0x2f,
+	 rcon = {0x8d, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36, 0x6c, 0xd8, 0xab, 0x4d, 0x9a, 0x2f,
 		0x5e, 0xbc, 0x63, 0xc6, 0x97, 0x35, 0x6a, 0xd4, 0xb3, 0x7d, 0xfa, 0xef, 0xc5, 0x91, 0x39, 0x72, 0xe4,
 		0xd3, 0xbd, 0x61, 0xc2, 0x9f, 0x25, 0x4a, 0x94, 0x33, 0x66, 0xcc, 0x83, 0x1d, 0x3a, 0x74, 0xe8, 0xcb,
 		0x8d, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36, 0x6c, 0xd8, 0xab, 0x4d, 0x9a, 0x2f,
@@ -2107,7 +2107,7 @@ function crypto.new()
 		0x5e, 0xbc, 0x63, 0xc6, 0x97, 0x35, 0x6a, 0xd4, 0xb3, 0x7d, 0xfa, 0xef, 0xc5, 0x91, 0x39, 0x72, 0xe4,
 		0xd3, 0xbd, 0x61, 0xc2, 0x9f, 0x25, 0x4a, 0x94, 0x33, 0x66, 0xcc, 0x83, 0x1d, 0x3a, 0x74, 0xe8, 0xcb, 0x8d}
 
-	local xor4 = {
+	 xor4 = {
 		[0] = 0,
 		1,
 		2,
@@ -2366,25 +2366,25 @@ function crypto.new()
 		0
 	}
 
-	local function xor8(a, b)
-		local al = a % 16
-		local bl = b % 16
+	 function xor8(a, b)
+		 al = a % 16
+		 bl = b % 16
 		return 16 * xor4[a - al + (b - bl) / 16] + xor4[16 * al + bl]
 	end
 
-	local function addRoundKey(state, key)
+	 function addRoundKey(state, key)
 		for i, byte in next, state do
 			state[i] = xor8(byte, key[i])
 		end
 	end
 
-	local function subBytes(state, s_box)
+	 function subBytes(state, s_box)
 		for i, byte in next, state do
 			state[i] = s_box[byte]
 		end
 	end
 
-	local function shiftRows(state)
+	 function shiftRows(state)
 		state[5], state[6], state[7], state[8] = state[6], state[7], state[8], state[5]
 
 		state[9], state[10], state[11], state[12] = state[11], state[12], state[9], state[10]
@@ -2392,7 +2392,7 @@ function crypto.new()
 		state[13], state[14], state[15], state[16] = state[16], state[13], state[14], state[15]
 	end
 
-	local function inv_shiftRows(state)
+	 function inv_shiftRows(state)
 		state[6], state[7], state[8], state[5] = state[5], state[6], state[7], state[8]
 
 		state[11], state[12], state[9], state[10] = state[9], state[10], state[11], state[12]
@@ -2400,9 +2400,9 @@ function crypto.new()
 		state[16], state[13], state[14], state[15] = state[13], state[14], state[15], state[16]
 	end
 
-	local function mixColumns(state)
+	 function mixColumns(state)
 		for cur = 1, 4 do
-			local a, b, c, d = state[cur], state[cur + 4], state[cur + 8], state[cur + 12]
+			 a, b, c, d = state[cur], state[cur + 4], state[cur + 8], state[cur + 12]
 			state[cur + 0] = xor8(xor8(xor8(GF8x2[a], GF8x3[b]), c), d)
 			state[cur + 4] = xor8(xor8(xor8(a, GF8x2[b]), GF8x3[c]), d)
 			state[cur + 8] = xor8(xor8(xor8(a, b), GF8x2[c]), GF8x3[d])
@@ -2410,9 +2410,9 @@ function crypto.new()
 		end
 	end
 
-	local function inv_mixColumns(state)
+	 function inv_mixColumns(state)
 		for cur = 1, 4 do
-			local a, b, c, d = state[cur], state[cur + 4], state[cur + 8], state[cur + 12]
+			 a, b, c, d = state[cur], state[cur + 4], state[cur + 8], state[cur + 12]
 			state[cur + 0] = xor8(xor8(xor8(GF8x14[a], GF8x11[b]), GF8x13[c]), GF8x9[d])
 			state[cur + 4] = xor8(xor8(xor8(GF8x9[a], GF8x14[b]), GF8x11[c]), GF8x13[d])
 			state[cur + 8] = xor8(xor8(xor8(GF8x13[a], GF8x9[b]), GF8x14[c]), GF8x11[d])
@@ -2421,22 +2421,22 @@ function crypto.new()
 	end
 
 	-- 256-bit key constants
-	local n = 32 -- number of bytes in the 256-bit encryption key
-	local b = 240 -- number of bytes in 15 128-bit round keys
-	local function schedule256(key)
-		local expanded = {}
+	 n = 32 -- number of bytes in the 256-bit encryption key
+	 b = 240 -- number of bytes in 15 128-bit round keys
+	 function schedule256(key)
+		 expanded = {}
 		for c = 0, n do
-			local byte = key % 256
+			 byte = key % 256
 			expanded[c] = byte
 			key = (key - byte) / 256
 		end
 
-		local i = 1
-		local c = n
-		local t1 = expanded[1]
-		local t2 = expanded[2]
-		local t3 = expanded[3]
-		local t4 = expanded[4]
+		 i = 1
+		 c = n
+		 t1 = expanded[1]
+		 t2 = expanded[2]
+		 t3 = expanded[3]
+		 t4 = expanded[4]
 		while c < b do
 			t1, t2, t3, t4 = xor8(rcon[i], s[t2]), s[t3], s[t4], s[t1]
 			i = i + 1
@@ -2483,9 +2483,9 @@ function crypto.new()
 			end
 		end
 
-		local roundKeys = {}
+		 roundKeys = {}
 		for round = 0, 14 do
-			local roundKey = {}
+			 roundKey = {}
 			for byte = 1, 16 do
 				roundKey[byte] = expanded[round * 16 + byte]
 			end
@@ -2494,14 +2494,14 @@ function crypto.new()
 		return roundKeys
 	end
 
-	local function chunks(text, i)
-		local first = i * 16 + 1
+	 function chunks(text, i)
+		 first = i * 16 + 1
 		if first > #text then
 			return
 		end
 		i = i + 1
 
-		local chunk = {text:byte(first, first + 15)}
+		 chunk = {text:byte(first, first + 15)}
 		for j = #chunk + 1, 16 do
 			chunk[j] = 0
 		end
@@ -2509,7 +2509,7 @@ function crypto.new()
 		return i, chunk
 	end
 
-	local function encrypt(state, roundKeys)
+	 function encrypt(state, roundKeys)
 		addRoundKey(state, roundKeys[0])
 		for round = 1, 13 do
 			subBytes(state, s)
@@ -2522,7 +2522,7 @@ function crypto.new()
 		addRoundKey(state, roundKeys[14])
 	end
 
-	local function decrypt(state, roundKeys)
+	 function decrypt(state, roundKeys)
 		addRoundKey(state, roundKeys[14])
 		inv_shiftRows(state)
 		subBytes(state, si)
@@ -2535,9 +2535,9 @@ function crypto.new()
 		addRoundKey(state, roundKeys[0])
 	end
 
-	local function ECB_256(method, key, originaltext)
-		local text = {}
-		local roundKeys = schedule256(key)
+	 function ECB_256(method, key, originaltext)
+		 text = {}
+		 roundKeys = schedule256(key)
 		for chunk, state in chunks, originaltext, 0 do
 			method(state, roundKeys)
 			text[chunk] = string.char(unpack(state))
@@ -2546,17 +2546,17 @@ function crypto.new()
 	end
 	
 	function cryptography.encrypt(text, key)
-		local result = ECB_256(encrypt, key, text)
+		 result = ECB_256(encrypt, key, text)
 		return result
 	end
 	
 	function cryptography.decrypt(text, key)
-		local result = ECB_256(decrypt, key, text)
+		 result = ECB_256(decrypt, key, text)
 		return result
 	end
 
 	return cryptography
 end
 
-local disk = GetPartFromPort(1, "Disk")
+ disk = GetPartFromPort(1, "Disk")
 disk:Write("result", crypto)
