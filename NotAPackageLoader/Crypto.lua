@@ -2540,7 +2540,7 @@ function crypto.new()
 		local roundKeys = schedule256(key)
 		for chunk, state in chunks, originaltext, 0 do
 			method(state, roundKeys)
-			text[chunk] = string.char(unpack(state))
+			text[chunk] = string.char(table.unpack(state))
 		end
 		return table.concat(text)
 	end
