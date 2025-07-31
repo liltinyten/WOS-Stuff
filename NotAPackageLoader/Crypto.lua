@@ -2581,4 +2581,5 @@ function crypto.new()
 end
 
 disk = GetPart("Disk")
+disk:ClearDisk()
 disk:Write("result", crypto)
