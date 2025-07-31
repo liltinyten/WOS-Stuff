@@ -12,6 +12,10 @@
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
+
+	NOTICE
+
+	Adapted to be loaded into the Roblox game Waste of Space.
 ]] 
 
 local crypto = {}
@@ -2576,5 +2580,5 @@ function crypto.new()
 	return cryptography
 end
 
-disk = GetPartFromPort(1, "Disk")
+disk = GetPart("Disk")
 disk:Write("result", crypto)
